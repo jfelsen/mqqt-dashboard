@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MQTT Live Viewer</title>
+  <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+</head>
+<body>
+  <h2>Live MQTT Messages</h2>
+  <div id="messages" style="font-family: monospace;"></div>
+
+  <script>
+    const client = mqtt.connect("ws://broker.hivemq.com:8000/mqtt");
+    const topic = "test/your-unique-topic-oliver123";  // must match Python
+
+    client.on("connect", () => {
+      console.log("✅ Connected to broker");
+      client.subscribe(topic);
+    });
+
+    client.on("message", (topic, message) => {
+      const msg = message.toString();
+      console.log("📩", msg);
+      document.getElementById("messages").innerHTML += `<p>${msg}</p>`;
+    });
+
+    client.on("error", (err) => {
+      console.error("❌ MQTT error:", err);
+    });
+  </script>
+</body>
+</html>
