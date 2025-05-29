@@ -9,7 +9,7 @@
   <div id="messages" style="font-family: monospace;"></div>
 
   <script>
-    const client = mqtt.connect("ws://broker.hivemq.com:8000/mqtt");
+    const client = mqtt.connect("wss://broker.hivemq.com:8000/mqtt");
     const topic = "test/your-unique-topic-oliver123";  // must match Python
 
     client.on("connect", () => {
